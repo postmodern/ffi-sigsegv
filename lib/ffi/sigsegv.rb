@@ -1,0 +1,1 @@
+require 'ffi/sigsegv/sigsegv'
