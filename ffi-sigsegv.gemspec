@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Postmodern"]
-  s.date = %q{2010-07-01}
+  s.date = %q{2010-10-10}
   s.description = %q{Ruby FFI bindings for the sigsegv library.}
   s.email = %q{postmodern.mod3@gmail.com}
   s.extra_rdoc_files = [
@@ -19,14 +19,16 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     ".gitignore",
-    ".specopts",
+    ".rspec",
     ".yardopts",
     "ChangeLog.md",
     "Gemfile",
+    "Gemfile.lock",
     "LICENSE.txt",
     "README.md",
     "Rakefile",
     "VERSION",
+    "ffi-sigsegv.gemspec",
     "lib/ffi/sigsegv.rb",
     "lib/ffi/sigsegv/dispatcher.rb",
     "lib/ffi/sigsegv/sigsegv.rb",
@@ -51,24 +53,21 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<ffi>, ["~> 0.6.0"])
-      s.add_development_dependency(%q<bundler>, ["~> 0.9.25"])
+      s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_development_dependency(%q<rake>, ["~> 0.8.7"])
-      s.add_development_dependency(%q<jeweler>, ["~> 1.4.0"])
-      s.add_development_dependency(%q<rspec>, ["~> 1.3.0"])
+      s.add_development_dependency(%q<jeweler>, ["~> 1.5.0.pre"])
+      s.add_development_dependency(%q<rspec>, ["~> 2.0.0"])
     else
-      s.add_dependency(%q<ffi>, ["~> 0.6.0"])
-      s.add_dependency(%q<bundler>, ["~> 0.9.25"])
+      s.add_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_dependency(%q<rake>, ["~> 0.8.7"])
-      s.add_dependency(%q<jeweler>, ["~> 1.4.0"])
-      s.add_dependency(%q<rspec>, ["~> 1.3.0"])
+      s.add_dependency(%q<jeweler>, ["~> 1.5.0.pre"])
+      s.add_dependency(%q<rspec>, ["~> 2.0.0"])
     end
   else
-    s.add_dependency(%q<ffi>, ["~> 0.6.0"])
-    s.add_dependency(%q<bundler>, ["~> 0.9.25"])
+    s.add_dependency(%q<bundler>, ["~> 1.0.0"])
     s.add_dependency(%q<rake>, ["~> 0.8.7"])
-    s.add_dependency(%q<jeweler>, ["~> 1.4.0"])
-    s.add_dependency(%q<rspec>, ["~> 1.3.0"])
+    s.add_dependency(%q<jeweler>, ["~> 1.5.0.pre"])
+    s.add_dependency(%q<rspec>, ["~> 2.0.0"])
   end
 end
 
