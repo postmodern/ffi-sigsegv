@@ -24,6 +24,64 @@ module FFI
         else
           SigSEGV.sigsegv_init(super())
         end
+
+        @handlers = {}
+      end
+
+      #
+      # Registers a new SIGSEGV handler.
+      #
+      # @param [Integer] address
+      #   The base address.
+      #
+      # @param [Integer] length
+      #   The length of bytes from the base address.
+      #
+      # @yield [fault_address]
+      #   The given block will be passed the fault address, when the dispatcher
+      #   calls the handlers.
+      #
+      # @yieldparam [FFI::MemoryPointer] fault_address
+      #   The pointer to the fault address.
+      #
+      # @return [FFI::MemoryPointer]
+      #   The "ticket" to use when unregistering the handler with
+      #   {#unregister}.
+      #
+      def register(address,len,&block)
+        handler = proc { |fault_address,user_arg| block.call(fault_address) }
+
+        ticket = SigSEGV.register(self,address,length,handler,nil)
+
+        @handlers[ticket] = handler
+        return handler
+      end
+
+      #
+      # Unregisters a handler.
+      #
+      # @param [FFI::MemoryPointer] ticket
+      #   The "ticket" returned by {#register}.
+      #
+      def unregister(ticket)
+        SigSEGV.unregister(self,ticket)
+
+        @handlers.delete(ticket)
+        return true
+      end
+
+      #
+      # Triggers all handlers registered to the dispatcher.
+      #
+      # @param [FFI::MemoryPointer] fault_address
+      #   The pointer to the fauly address.
+      #
+      # @return [Integer]
+      #   The return value of the handler. `0` will be returned if no handlers
+      #   were called.
+      #
+      def dispatch(fault_address)
+        SigSEGV.sigsegv_dispatch(self,fault_address)
       end
 
     end
