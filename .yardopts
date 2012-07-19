@@ -1,1 +1,1 @@
---markup markdown --title 'FFI SigSEGV Documentation' --protected --files ChangeLog.md,LICENSE.txt
+--markup markdown --title "ffi-sigsegv Documentation" --protected

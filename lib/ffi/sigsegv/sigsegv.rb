@@ -29,5 +29,13 @@ module FFI
     attach_function :sigsegv_register, [:pointer, :pointer, :ulong, :sigsegv_area_handler, :pointer], :pointer
     attach_function :sigsegv_unregister, [:pointer, :pointer], :void
     attach_function :sigsegv_dispatch, [:pointer, :pointer], :int
+
+    def self.handlers
+      @@sigsegv_handlers ||= []
+    end
+
+    def self.install(handler)
+      SigSEGV.handlers << handler
+    end
   end
 end

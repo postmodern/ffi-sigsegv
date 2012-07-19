@@ -1,0 +1,17 @@
+name: ffi-sigsegv
+summary: FFI bindings for libsigsegv
+description:
+  Ruby FFI bindings for libsigsegv.
+
+license: MIT
+authors: Postmodern
+email: postmodern.mod3@gmail.com
+homepage: https://github.com/postmodern/ffi-sigsegv#readme
+
+dependencies:
+  ffi: ~> 1.0
+
+development_dependencies:
+  rubygems-tasks: ~> 0.2
+  rspec: ~> 2.4
+  yard: ~> 0.7
