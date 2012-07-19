@@ -19,10 +19,8 @@ module FFI
       #   `sigsegv_init`.
       #
       def initialize(ptr=nil)
-        if ptr
-          super(ptr)
-        else
-          SigSEGV.sigsegv_init(super())
+        if ptr then  super(ptr)
+        else         SigSEGV.sigsegv_init(super())
         end
 
         @handlers = {}
