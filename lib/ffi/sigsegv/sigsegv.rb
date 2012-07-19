@@ -31,12 +31,43 @@ module FFI
     attach_function :sigsegv_unregister, [:pointer, :pointer], :void
     attach_function :sigsegv_dispatch, [:pointer, :pointer], :int
 
-    def self.handlers
-      @@sigsegv_handlers ||= []
+    @handler = nil
+
+    #
+    # Installs a SIGSEGV handler.
+    #
+    # @yield [fault_address, serious]
+    #   The block will be called when the handler is triggered.
+    #
+    # @yieldparam [FFI::MemoryPointer] fault_address
+    #
+    # @yieldparam [Integer] serious
+    #   Indicates the seriously of the Segmentation Fault:
+    #
+    #   * `0` - possible stack overflow.
+    #   * `1` - serious fault.
+    #
+    # @raise
+    #   The system does not support SIGSEGV.
+    #
+    def self.install(&block)
+      @handler = block
+
+      unless sigsegv_install_handler(block) == 0
+        raise("SIGSEGV not supported")
+      end
+
+      return true
     end
 
-    def self.install(handler)
-      handlers << handler
+    #
+    # Uninstalls the SIGSEGV handler.
+    #
+    def self.deinstall
+      sigsegv_deinstall_handler
+
+      @handler = nil
+      return true
     end
   end
 end
