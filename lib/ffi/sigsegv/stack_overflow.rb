@@ -1,4 +1,5 @@
 require 'ffi/sigsegv/sigsegv'
+require 'ffi/sigsegv/ucontext'
 
 module FFI
   module SigSEGV
@@ -16,6 +17,19 @@ module FFI
       #   The size of the extra stack space, to be used when the handler is
       #   called.
       #
+      # @yield [emergency, context]
+      #   The given block will be called when the handler is triggered.
+      #
+      # @yieldparam [Integer] emergency
+      #   Indicates the level of severity:
+      #
+      #   * `0` - The overflow can be repaired.
+      #   * `1` - The overflow cannot be repaired and the application should
+      #     prepare to exit immediately.
+      #
+      # @yieldparam [UContext] context
+      #   The program context at the time of the stack overflow.
+      #
       # @return [true]
       #   Success.
       #
@@ -23,7 +37,9 @@ module FFI
       #   The system does not support catching stack overflows.
       #
       def self.install(extra_stack_size=SIGSTKSZ,&block)
-        @handler     = block
+        @handler     = proc { |emergency,context|
+          block.call(emergency,UContext.new(context))
+        }
         @extra_stack = FFI::Buffer.new(extra_stack_size)
 
         unless SigSEGV.stackoverflow_install_handler(@extra_stack,extra_stack_size,block) == 0
