@@ -1,5 +1,5 @@
-require 'ffi/sigsegv/ucontext'
 require 'ffi/sigsegv/types'
+require 'ffi/sigsegv/ucontext'
 
 require 'ffi'
 
