@@ -73,7 +73,7 @@ module FFI
 
     callback :sigsegv_handler, [:pointer, :int], :int
 
-    typedef :pointer, :stackoverflow_context
+    typedef :ucontext_t, :stackoverflow_context
 
     callback :stackoverflow_handler, [:int, :stackoverflow_context], :void
 
