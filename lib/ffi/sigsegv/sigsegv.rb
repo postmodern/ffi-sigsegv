@@ -1,3 +1,4 @@
+require 'ffi/sigsegv/ucontext'
 require 'ffi/sigsegv/dispatcher'
 require 'ffi/sigsegv/types'
 
