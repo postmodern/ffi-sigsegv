@@ -36,7 +36,7 @@ module FFI
     end
 
     def self.install(handler)
-      SigSEGV.handlers << handler
+      handlers << handler
     end
   end
 end
