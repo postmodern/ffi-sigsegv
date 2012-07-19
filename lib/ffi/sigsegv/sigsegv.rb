@@ -33,7 +33,7 @@ module FFI
     @handler = nil
 
     #
-    # Installs a SIGSEGV handler.
+    # Installs a global SIGSEGV handler.
     #
     # @yield [fault_address, serious]
     #   The block will be called when the handler is triggered.
@@ -60,7 +60,7 @@ module FFI
     end
 
     #
-    # Uninstalls the SIGSEGV handler.
+    # Uninstalls the global SIGSEGV handler.
     #
     def self.deinstall
       sigsegv_deinstall_handler

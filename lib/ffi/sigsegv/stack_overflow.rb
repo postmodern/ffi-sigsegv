@@ -10,7 +10,7 @@ module FFI
       @extra_stack = nil
 
       #
-      # Installs a Stack Overflow handler.
+      # Installs a global Stack Overflow handler.
       #
       # @param [Integer] extra_stack_size
       #   The size of the extra stack space, to be used when the handler is
@@ -34,7 +34,7 @@ module FFI
       end
 
       #
-      # Uninstalls the stack overflow handler.
+      # Uninstalls the global Stack Overflow handler.
       #
       def self.deinstall
         SigSEGV.stackoverflow_deinstall_handler
