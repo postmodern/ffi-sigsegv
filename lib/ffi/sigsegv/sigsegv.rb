@@ -46,6 +46,8 @@ module FFI
     #   * `0` - possible stack overflow.
     #   * `1` - serious fault.
     #
+    # @return [true]
+    #
     # @raise
     #   The system does not support SIGSEGV.
     #
