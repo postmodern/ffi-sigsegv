@@ -20,12 +20,8 @@ module FFI
       # @yield [emergency, context]
       #   The given block will be called when the handler is triggered.
       #
-      # @yieldparam [Integer] emergency
-      #   Indicates the level of severity:
-      #
-      #   * `0` - The overflow can be repaired.
-      #   * `1` - The overflow cannot be repaired and the application should
-      #     prepare to exit immediately.
+      # @yieldparam [:repairable, :emergency] emergency
+      #   Indicates the level of severity.
       #
       # @yieldparam [UContext] context
       #   The program context at the time of the stack overflow.

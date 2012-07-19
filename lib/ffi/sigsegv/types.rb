@@ -71,11 +71,21 @@ module FFI
     typedef :pointer, :mcontext_t
     typedef :pointer, :ucontext_t
 
-    callback :sigsegv_handler, [:pointer, :int], :int
+    enum :sigsegv_serious, [
+      :stack_overflow, 0
+      :serious,        1
+    ]
+
+    callback :sigsegv_handler, [:pointer, :sigsegv_serious], :int
+
+    enum :stackoverflow_emergency, [
+      :repairable, 0,
+      :emergency,  1
+    ]
 
     typedef :ucontext_t, :stackoverflow_context
 
-    callback :stackoverflow_handler, [:int, :stackoverflow_context], :void
+    callback :stackoverflow_handler, [:stackoverflow_emergency, :stackoverflow_context], :void
 
     callback :sigsegv_area_handler, [:pointer, :pointer], :int
   end

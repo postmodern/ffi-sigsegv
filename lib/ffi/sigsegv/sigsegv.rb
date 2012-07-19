@@ -40,11 +40,8 @@ module FFI
     #
     # @yieldparam [FFI::MemoryPointer] fault_address
     #
-    # @yieldparam [Integer] serious
-    #   Indicates the seriously of the Segmentation Fault:
-    #
-    #   * `0` - possible stack overflow.
-    #   * `1` - serious fault.
+    # @yieldparam [:stack_overflow, :serious] serious
+    #   Indicates the severity of the Segmentation Fault.
     #
     # @return [true]
     #
