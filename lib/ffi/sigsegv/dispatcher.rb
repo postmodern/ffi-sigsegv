@@ -42,7 +42,7 @@ module FFI
       #   calls the handlers.
       #
       # @yieldparam [FFI::MemoryPointer] fault_address
-      #   The pointer to the fault address.
+      #   The address the Segmentation Fault occurred at.
       #
       # @return [FFI::MemoryPointer]
       #   The "ticket" to use when unregistering the handler with

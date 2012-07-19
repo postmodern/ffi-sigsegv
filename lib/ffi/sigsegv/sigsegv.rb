@@ -39,6 +39,7 @@ module FFI
     #   The block will be called when the handler is triggered.
     #
     # @yieldparam [FFI::MemoryPointer] fault_address
+    #   The address the Segmentation Fault occurred at.
     #
     # @yieldparam [:stack_overflow, :serious] serious
     #   Indicates the severity of the Segmentation Fault.
