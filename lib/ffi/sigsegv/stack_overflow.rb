@@ -1,4 +1,4 @@
-require 'ffi/sigsegv/sigsegv'
+require 'ffi/sigsegv/library'
 require 'ffi/sigsegv/ucontext'
 
 module FFI
