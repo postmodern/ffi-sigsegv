@@ -6,6 +6,16 @@ module FFI
   module SigSEGV
     class Dispatcher < FFI::Struct
 
+      class Handler < Proc
+        
+        def self.new(&block)
+          super do |fault_address,user_arg|
+            yield fault_address
+          end
+        end
+
+      end
+
       layout :tree, :pointer
 
       #
@@ -47,9 +57,8 @@ module FFI
       #   {#unregister}.
       #
       def register(address,len,&block)
-        handler = proc { |fault_address,user_arg| block.call(fault_address) }
-
-        ticket = SigSEGV.register(self,address,length,handler,nil)
+        handler = Handler.new(&block)
+        ticket  = SigSEGV.register(self,address,length,handler,nil)
 
         @handlers[ticket] = handler
         return handler

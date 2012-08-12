@@ -4,6 +4,14 @@ require 'ffi/sigsegv/ucontext'
 module FFI
   module SigSEGV
     module StackOverflow
+      class Handler < Proc
+        
+        def self.new(&block)
+          super do |emergency,context|
+            yield emergency, UContext.new(context)
+          end
+        end
+      end
 
       SIGSTKSZ = (16 * 1024)
 
@@ -33,9 +41,7 @@ module FFI
       #   The system does not support catching stack overflows.
       #
       def self.install(extra_stack_size=SIGSTKSZ,&block)
-        @handler     = proc { |emergency,context|
-          block.call(emergency,UContext.new(context))
-        }
+        @handler     = Handler.new(&block)
         @extra_stack = FFI::Buffer.new(extra_stack_size)
 
         unless SigSEGV.stackoverflow_install_handler(@extra_stack,extra_stack_size,block) == 0
